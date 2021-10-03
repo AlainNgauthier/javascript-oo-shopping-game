@@ -1,7 +1,6 @@
 //to run the project: node ./js/shoppinggame.js
-
 let gameComplete = false;
-// Define the three constants here
+// Define the three constants here 
 const name = "unknown";
 const score = 0;
 const items = 0;
@@ -21,7 +20,6 @@ const player = {
         this.score = this.score - points;
     }
 }
-
 // Define the Product class - write the Constructor function for Product class here
 function Product(id, name, price, expiryDate) {
     this.id = id;
@@ -31,18 +29,13 @@ function Product(id, name, price, expiryDate) {
 }
 
 // Complete the dateDiff function
-// 1 day = 86400000 milliseconds
 const dateDiff = (date1, date2) => {
-    //timediff = Math.abs(date2.getTime() - date1.getTime());
-    //diffDays = Math.ceil(timediff / (1000 * 3600 * 24));
-    //return diffDays;
-
-    return Math.ceil((date2 - date1) / 86400000);
+    return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / 86400000);
 };
 
 // Here, use Object.defineProperty to create property - daysToExpire
 Object.defineProperty(Product.prototype, 'daysToExpire', {
-    get: function() {
+    get: function () {
         return dateDiff(this.expiryDate, new Date());
     }
 });
