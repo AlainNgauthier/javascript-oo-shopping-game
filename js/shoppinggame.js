@@ -14,11 +14,11 @@ const player = {
     getCurrentScore() {
         return this.score;
     },
-    addPoints( points ) {
-        return this.score + points;
+    addPoints(points) {
+        this.score + points;
     },
-    deductPoints( points ) {
-        return this.score - points;
+    deductPoints(points) {
+        this.score = this.score - points;
     }
 }
 
@@ -33,14 +33,17 @@ function Product(id, name, price, expiryDate) {
 // Complete the dateDiff function
 // 1 day = 86400000 milliseconds
 const dateDiff = (date1, date2) => {
+    //timediff = Math.abs(date2.getTime() - date1.getTime());
+    //diffDays = Math.ceil(timediff / (1000 * 3600 * 24));
+    //return diffDays;
+
     return Math.round((date2 - date1) / 86400000);
 };
 
 // Here, use Object.defineProperty to create property - daysToExpire
-Object.defineProperty(Product, 'daysToExpire', {
-    get() {
-        let days = dateDiff(this.expiryDate, new Date());
-        return days;
+Object.defineProperty(Product.prototype, 'daysToExpire', {
+    get: function() {
+        return dateDiff(this.expiryDate, new Date());
     }
 });
 
@@ -57,23 +60,18 @@ function MagicProduct(id, name, price, expiryDate, points, isBonus) {
 }
 // Establish inheritance between Product() & MagicProduct() here
 MagicProduct.prototype = Object.create(Product.prototype); // here, Magic.prototype === Product.prototype and Magic.prototype.constructor = Product()
-Object.defineProperty(Product.prototype, 'constructor', {
-    value: MagicProduct,
-    enumerable: false,
-    writable: true
-}); // now, MagicProduct.prototype.constructor = MagicProduct() , and MagicProduct is now inheriting from Product()
 
 // Define Rating class here
 class Rating {
-    constructor(rate = "") {
-        this.rate = rate;
+    constructor() {
+        this.rate = "";
     }
     
     //getter and setter
     get rating() {
         return this.rate;
     }
-    set rating(valor) {
+    set rating(value) {
         if(value > 1 && value <= 4) {
             this.rate = "OK";
         }else if(value >= 5 && value <= 7) {
