@@ -37,7 +37,7 @@ const dateDiff = (date1, date2) => {
     //diffDays = Math.ceil(timediff / (1000 * 3600 * 24));
     //return diffDays;
 
-    return Math.round((date2 - date1) / 86400000);
+    return Math.ceil((date2 - date1) / 86400000);
 };
 
 // Here, use Object.defineProperty to create property - daysToExpire
