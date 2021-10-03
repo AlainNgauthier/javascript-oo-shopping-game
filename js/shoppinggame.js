@@ -15,7 +15,7 @@ const player = {
         return this.score;
     },
     addPoints(points) {
-        this.score + points;
+        this.score = this.score + points;
     },
     deductPoints(points) {
         this.score = this.score - points;
