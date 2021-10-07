@@ -333,7 +333,7 @@ function init(data) {
                 } else {
                     let iCount = ++player.items;
                     // Make the Object.defineProperty() call here to set the value of items using the value of iCount
-                    OBject.defineProperty(player, 'items', {
+                    Object.defineProperty(player, 'items', {
                         value: iCount
                     });
                     if (player.items < 10) {
