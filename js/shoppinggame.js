@@ -314,12 +314,12 @@ function init(data) {
     const shop = (prodList, tBill, lastProd) => {
         let totalBill = tBill;
         const prId = generateProductId();
-        let product = Object.is(lastProd) !== "undefined" ? lastProd : getProduct(prodList, prId);
+        let product = !Object.is(lastProd, undefined) ? lastProd : getProduct(prodList, prId);
         let productDetails = product.getDetails(); // Assign the value of productDetails here
 
         rl.question(`You can buy - ${productDetails}.\n Do you want to buy this item <Y/N>? `.yellow, function (option) {
-            const regexYes = /y/i;
-            const regexNo = /n/i;
+            const regexYes = new RegExp('y', 'i');
+            const regexNo = new RegExp('n', 'i');
             if (regexYes.test(option)) {
                 totalBill = calculateBill(product, totalBill);
                 calculatePoints(product, totalBill);
@@ -333,11 +333,9 @@ function init(data) {
                 } else {
                     let iCount = ++player.items;
                     // Make the Object.defineProperty() call here to set the value of items using the value of iCount
-                    OBject.defineProperty(player, '_iCount', {
-                        set: function(iCount) {
-                            this.items = this.items + iCount;
-                        }
-                    })
+                    OBject.defineProperty(player, 'items', {
+                        value: iCount
+                    });
                     if (player.items < 10) {
                         shop(prodList, totalBill);
                     } else {
